@@ -24,15 +24,20 @@ $(document).ready(function(){
     $("input[type=submit]").on("click",function(event){
       event.preventDefault();
       var animal = $("input[type=text]").val();
-      favorites.push(animal);
-      getAnimalButtons(favorites);
+      if(animal != ""){
+        favorites.push(animal);
+        getAnimalButtons(favorites);
+    }else{
+      alert("Please enter the valid Animal Name!!")
+    }
+      $("input[type=text]").val("");
     });
 });
 
 function getAnimalDetails(animalName){
 		$("#animalGiphys").empty();
 		        // Here we construct our URL
-        var queryURL = "http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&limit=10&q="
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&limit=10&q="
         +encodeURIComponent(animalName);
         $.ajax({
           url:queryURL,
@@ -65,7 +70,7 @@ function getAnimalDetails(animalName){
 
  function getAnimalButtons(favorites){
     $("#animalButtons").empty();
-    
+
     if(!Array.isArray(favorites)){
       favorites = [];
     }
